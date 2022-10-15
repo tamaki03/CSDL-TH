@@ -52,3 +52,67 @@ create table if not exists DIEMHP(
     foreign key (MaSV) references SINHVIEN(MaSV) ON UPDATE CASCADE ,
     foreign key (MaHP) references DMHOCPHAN(MaHP) ON UPDATE CASCADE 
 );
+INSERT INTO DMHOCPHAN
+	(MaHP,TenHP,Sodvht,MaNganh,HocKy)
+VALUES
+	(001 ,'Toán cao cấp A1 ',4 ,480202 ,1),
+	(002 ,'Tiếng Anh 1 ',3 ,480202 ,1),
+	(003 ,'Vật lý đại cương ',4 ,480202 ,1),
+	(004 ,'Tiến anh 2 ',7 ,480202 ,1),
+	(005 ,'Tiếng anh 1 ',3 ,140909 ,2),
+	(006 ,'Xác suất thông kê ',3 ,140902 ,2);
+    
+INSERT INTO DIEMHP 
+	(MaSV,MaHP,DiemHP)
+VALUES
+	(002 ,002 ,5.9),
+	(002 ,003 ,4.5),
+	(003 ,001 ,4.3),
+	(003 ,002 ,6.7),
+	(003 ,003 ,7.3),
+	(004 ,001 ,4.0),
+	(004 ,002 ,5.2),
+	(004 ,003 ,3.5),
+	(005 ,001 ,9.8),
+	(005 ,002 ,7.9),
+	(006 ,001 ,6.1),
+	(006 ,002 ,5.6),
+	(006 ,003 ,4.0),
+	(007 ,001 ,6.2);
+    
+INSERT INTO DMKHOA
+	(MaKhoa,TenKhoa)
+VALUES
+	('CNTT','Công Nghệ Thông Tin'),
+    ('KT','Kế Toán'),
+    ('SP','Sư Phạm');
+
+INSERT INTO DMNGANH
+	(MaNganh,TenNganh,MaKhoa)
+VALUES
+	(140902,'Sư phạm toán tin','SP'),
+    (480202,'Tin học ứng dụng','CNTT');
+    
+INSERT INTO DMLOP
+	(MaLop,TenLop,MaNganh,KhoaHoc,HeDT,NamNhapHoc)
+VALUES
+	(CT11 ,'Cao đẳng tin học ',480202 ,11 ,'TC ',2013),
+	(CT12 ,'Cao đẳng tin học ',480202 ,12 ,'CĐ ',2013),
+	(CT13 ,'Cao đẳng tin học ',480202 ,13 ,'CĐ ',214);
+
+INSERT INTO SINHVIEN
+	(MaSV,HoTen,MaLop,GioiTinh,NgaySinh,DiaChi)
+VALUES
+	(002 ,'Nguyễn Thị Cẩm CT12 ',True ,'1994-12-01 ','Quy Nhơn'),
+	(003 ,'Võ Thị Hà CT12',True ,'1995-02-07 ','An Nhơn'),
+	(004 ,'Trần Hoài Nam CT12',False	,'1994-05-04 ','Tây sơn'),
+	(005 ,'Trần Văn Hoàng CT13',False ,'1995-04-08 ','Vĩnh Thạch'),
+	(006 ,'Đăng Thị Thảo CT13',True ,'1995-12-06 ','Quy Nhơn'),
+	(007 ,'Lê Thị Sen CT13',True ,'1994-12-08 ','Phù Cát'),
+	(008 ,'Nguyễn Văn Huy CT11',False ,'1995-04-06 ','Phù Mỹ'),
+	(009 ,'Trần Thị Hoa CT11',True ,'1994-09-08 ','Hoài Nhơn');
+
+
+
+
+
