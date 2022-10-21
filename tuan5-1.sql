@@ -208,7 +208,7 @@ Set productLine = REPLACE(productLine,"Cars","Automobiles");
 
 -- bai 4
 
-SELECT DATEDIFF(requiredDate,shippedDate) as "days"
+SELECT orderNumber,requiredDate,shippedDate,DATEDIFF(requiredDate,shippedDate) as "days"
 from orders
 WHERE shippedDate is NOT NULL
 order BY days ASC
@@ -217,7 +217,7 @@ LIMIT 5;
 
 -- bai 5
 
-SELECT orderDate,shippedDate
+SELECT orderNumber,orderDate,shippedDate
 from orders
 WHERE shippedDate is NULL AND orderDate between "2005-05-01" AND "2005-05-31"
 
