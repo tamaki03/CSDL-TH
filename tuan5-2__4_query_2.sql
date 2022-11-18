@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS orders (
   orderNumber int NOT NULL AUTO_INCREMENT,
-  orderDate DATETIME ,
+  orderdate DATETIME ,
   requiredDate DATETIME,
   shippedDate DATETIME ,
   status varchar(15) NOT NULL,	
@@ -27,9 +27,9 @@ CREATE TABLE IF NOT EXISTS products (
   quantityInStock smallint NOT NULL,
   buyPrice double NOT NULL,
   PRIMARY KEY (productCode),
-  FOREIGN KEY (productLine) REFERENCES productlines(productLine) ON UPDATE CASCADE 
+  FOREIGN KEY orderdetails(productLine) REFERENCES productlines(productLine) ON UPDATE CASCADE 
 );
-ALTER TABLE products ADD MSRP double NOT NULL;
+
 CREATE TABLE IF NOT EXISTS orderdetails (
   orderNumber int NOT NULL AUTO_INCREMENT,
   productCode varchar(15) NOT NULL,
@@ -90,8 +90,19 @@ CREATE TABLE IF NOT EXISTS offices(
     territory varchar(100) NOT NULL
 );
 
+ALTER TABLE products ADD MSRP double NOT NULL;
 
-
+INSERT INTO customers
+	(customerNumber,customerName,contactLastName,contactFirstName,phone,addressLine1,addressLine2,city,state,postalCode,country,salesRepEmployeeNumber,creditLimit)
+VALUES
+	(103,	'Atelier graphique',	'Schmitt',	'Carine', 	'40.32.2555',	'54, rue Royale',	NULL,	'Nantes',	NULL,	'44000',	'France',	1370,	21000),
+	(112,	'Signal Gift Stores',	'King',	'Jean',	'7025551838',	'8489 Strong St.',	NULL,	'Las Vegas',	'NV',	'83030',	'USA',	1166,	71800),
+	(114,	'Australian Collectors Co.',	'Ferguson',	'Peter',	'03 9520 4555',	'636 St Kilda Road',	'Level 3',	'Melbourne',	'Victoria',	'3004',	'Australia',	1611,	117300),
+	(119,	'La Rochelle Gifts',	'Labrune',	'Janine', 	'40.67.8555',	'67, rue des Cinquante Otages',	NULL,	'Nantes',	NULL,	'44000',	'France',1370,	118200),
+	(121,	'Baane Mini Imports',	'Bergulfsen',	'Jonas', 	'07-98 9555',	'Erling Skakkes gate 78',	NULL,	'Stavern',	NULL,	'4110',	'Norway',1504,	81700),
+	(124,	'Mini Gifts Distributors Ltd.',	'Nelson',	'Susan',	'4155551450',	'5677 Strong St.',	NULL,	'San Rafael',	'CA',	'97562','USA',	1165,	210500),
+	(125,	'Havel & Zbyszek Co',	'Piestrzeniewicz',	'Zbyszek', 	'(26) 642-7555',	'ul. Filtrowa 68',	NULL,	'Warszawa',	NULL,	'01-012',	'Poland',	NULL,	0),
+	(146,	'Saveley & Henriot, Co.',	'Saveley',	'Mary', 	'78.32.5555',	'2, rue du Commerce',	NULL,	'Lyon',	NULL,	'69004',	'France',	1337,	123900);
 
 
 INSERT INTO orders
@@ -110,48 +121,6 @@ VALUES
 	(10394,'2005-03-15','2005-03-25','2005-03-19','Shipped',NULL,141);
 
 
-    
-INSERT INTO productlines
-	(productLine,	textDescription,	htmlDescription,	image)
-VALUES
-	('Classic Cars',	'Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office.',	NULL,	NULL),
-	('Motorcycles',	'Our motorcycles are state of the art replicas of classic as well as contemporary motorcycle legends such as Harley Davidson, Ducati and Vespa. Models contain stunning details such as official logos, rotating wheels, working kickstand, front suspension, gear-shift lever, footbrake lever, and drive chain. Materials used include diecast and plastic. The models range in size from 1:10 to 1:50 scale and include numerous limited edition and several out-of-production vehicles. All models come fully assembled and ready for display in the home or office. Most include a certificate of authenticity.',	NULL,	NULL),
-	('Planes',	'Unique, diecast airplane and helicopter replicas suitable for collections, as well as home, office or classroom decorations. Models contain stunning details such as official logos and insignias, rotating jet engines and propellers, retractable wheels, and so on. Most come fully assembled and with a certificate of authenticity from their manufacturers.',	NULL,	NULL),
-	('Ships',	'The perfect holiday or anniversary gift for executives, clients, friends, and family. These handcrafted model ships are unique, stunning works of art that will be treasured for generations! They come fully assembled and ready for display in the home or office. We guarantee the highest quality, and best value.',	NULL,	NULL),
-	('Trains',	'Model trains are a rewarding hobby for enthusiasts of all ages. Whether you\'re looking for collectible wooden trains, electric streetcars or locomotives, you\'ll find a number of great choices for any budget within this category. The interactive aspect of trains makes toy trains perfect for young children. The wooden train sets are ideal for children under the age of 5.',	NULL,	NULL),
-	('Trucks and Buses',	'The Truck and Bus models are realistic replicas of buses and specialized trucks produced from the early 1920s to present. The models range in size from 1:12 to 1:50 scale and include numerous limited edition and several out-of-production vehicles. Materials used include tin, diecast and plastic. All models include a certificate of authenticity from their manufacturers and are a perfect ornament for the home and office.',	NULL,	NULL),
-	('Vintage Cars',	'Our Vintage Car models realistically portray automobiles produced from the early 1900s through the 1940s. Materials used include Bakelite, diecast, plastic and wood. Most of the replicas are in the 1:18 and 1:24 scale sizes, which provide the optimum in detail and accuracy. Prices range from $30.00 up to $180.00 for some special limited edition replicas. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office.',	NULL,	NULL);
-
-
-
-INSERT INTO products
-	(productCode,productName,productLine,productScale,productVendor,productDescription,quantityInStock,buyPrice,MSRP)
-VALUES
-	('S10_1678',	'1969 Harley Davidson Ultimate Chopper',	'Motorcycles',	'1:10',	'Min Lin Diecast',	'This replica features working kickstand, front suspension, gear-shift lever, footbrake lever, drive chain, wheels and steering. All parts are particularly delicate due to their precise scale and require special care and attention.',	7933,	48.81,	95.7),
-	('S10_1949',	'1952 Alpine Renault 1300',	'Classic Cars',	'1:10',	'Classic Metal Creations',	'Turnable front wheels; steering function; detailed interior; detailed engine; opening hood; opening trunk; opening doors; and detailed chassis.'	,7305	,98.58,	214.3),
-	('S12_4473',	'1957 Chevy Pickup',	'Trucks and Buses',	'1:12',	'Exoto Designs',	'1:12 scale die-cast about 20" long Hood opens, Rubber wheels',	6125	,55.7	,118.5),
-	('S12_4675',	'1969 Dodge Charger',	'Classic Cars',	'1:12',	'Welly Diecast Productions',	'Detailed model of the 1969 Dodge Charger. This model includes finely detailed interior and exterior features. Painted in red and white.',	7323,	58.73,	115.16),
-	('S18_1097',	'1940 Ford Pickup Truck',	'Trucks and Buses',	'1:18',	'Studio M Art Models',	'This model features soft rubber tires, working steering, rubber mud guards, authentic Ford logos, detailed undercarriage, opening doors and hood,  removable split rear gate, full size spare mounted in bed, detailed interior with opening glove box',	2613,	58.33,	116.67),
-	('S18_1129',	'1993 Mazda RX-7',	'Classic Cars',	'1:18',	'Highway 66 Mini Classics',	'This model features, opening hood, opening doors, detailed engine, rear spoiler, opening trunk, working steering, tinted windows, baked enamel finish. Color red.',	3975,	83.51,	141.54),
-	('S18_1342',	'1937 Lincoln Berline',	'Vintage Cars',	'1:18',	'Motor City Art Classics',	'Features opening engine cover, doors, trunk, and fuel filler cap. Color black',	8693,	60.62,	102.74);
-
-
-
-INSERT INTO customers
-	(customerNumber,customerName,contactLastName,contactFirstName,phone,addressLine1,addressLine2,city,state,postalCode,country,salesRepEmployeeNumber,creditLimit)
-VALUES
-	(103,	'Atelier graphique',	'Schmitt',	'Carine', 	'40.32.2555',	'54, rue Royale',	NULL,	'Nantes',	NULL,	'44000',	'France',	1370,	21000),
-	(112,	'Signal Gift Stores',	'King',	'Jean',	'7025551838',	'8489 Strong St.',	NULL,	'Las Vegas',	'NV',	'83030',	'USA',	1166,	71800),
-	(114,	'Australian Collectors Co.',	'Ferguson',	'Peter',	'03 9520 4555',	'636 St Kilda Road',	'Level 3',	'Melbourne',	'Victoria',	'3004',	'Australia',	1611,	117300),
-	(119,	'La Rochelle Gifts',	'Labrune',	'Janine', 	'40.67.8555',	'67, rue des Cinquante Otages',	NULL,	'Nantes',	NULL,	'44000',	'France',1370,	118200),
-	(121,	'Baane Mini Imports',	'Bergulfsen',	'Jonas', 	'07-98 9555',	'Erling Skakkes gate 78',	NULL,	'Stavern',	NULL,	'4110',	'Norway',1504,	81700),
-	(124,	'Mini Gifts Distributors Ltd.',	'Nelson',	'Susan',	'4155551450',	'5677 Strong St.',	NULL,	'San Rafael',	'CA',	'97562','USA',	1165,	210500),
-	(125,	'Havel & Zbyszek Co',	'Piestrzeniewicz',	'Zbyszek', 	'(26) 642-7555',	'ul. Filtrowa 68',	NULL,	'Warszawa',	NULL,	'01-012',	'Poland',	NULL,	0),
-	(146,	'Saveley & Henriot, Co.',	'Saveley',	'Mary', 	'78.32.5555',	'2, rue du Commerce',	NULL,	'Lyon',	NULL,	'69004',	'France',	1337,	123900);
-
-
-
-
 INSERT INTO employees
 	(employeeNumber,lastName,firstName,extension,email,officeCode,reportsTo,jobTitle)
 VALUES
@@ -165,6 +134,29 @@ VALUES
 	(1166,	'Thompson',	'Leslie',	'x4065',	'lthompson@classicmodelcars.com',	1,	1143,	'Sales Rep'),
 	(1188,	'Firrelli',	'Julie',	'x2173', 'jfirrelli@classicmodelcars.com',	2,	1143,	'Sales Rep'),
 	(1216,	'Patterson',	'Steve',	'x4334',	'spatterson@classicmodelcars.com',	2,	1143,	'Sales Rep');
+    
+INSERT INTO productlines
+	(productLine,	textDescription,	htmlDescription,	image)
+VALUES
+	('Classic Cars',	'Attention car enthusiasts: Make your wildest car ownership dreams come true. Whether you are looking for classic muscle cars, dream sports cars or movie-inspired miniatures, you will find great choices in this category. These replicas feature superb attention to detail and craftsmanship and offer features such as working steering system, opening forward compartment, opening rear trunk with removable spare wheel, 4-wheel independent spring suspension, and so on. The models range in size from 1:10 to 1:24 scale and include numerous limited edition and several out-of-production vehicles. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office.',	NULL,	NULL),
+	('Motorcycles',	'Our motorcycles are state of the art replicas of classic as well as contemporary motorcycle legends such as Harley Davidson, Ducati and Vespa. Models contain stunning details such as official logos, rotating wheels, working kickstand, front suspension, gear-shift lever, footbrake lever, and drive chain. Materials used include diecast and plastic. The models range in size from 1:10 to 1:50 scale and include numerous limited edition and several out-of-production vehicles. All models come fully assembled and ready for display in the home or office. Most include a certificate of authenticity.',	NULL,	NULL),
+	('Planes',	'Unique, diecast airplane and helicopter replicas suitable for collections, as well as home, office or classroom decorations. Models contain stunning details such as official logos and insignias, rotating jet engines and propellers, retractable wheels, and so on. Most come fully assembled and with a certificate of authenticity from their manufacturers.',	NULL,	NULL),
+	('Ships',	'The perfect holiday or anniversary gift for executives, clients, friends, and family. These handcrafted model ships are unique, stunning works of art that will be treasured for generations! They come fully assembled and ready for display in the home or office. We guarantee the highest quality, and best value.',	NULL,	NULL),
+	('Trains',	'Model trains are a rewarding hobby for enthusiasts of all ages. Whether you\'re looking for collectible wooden trains, electric streetcars or locomotives, you\'ll find a number of great choices for any budget within this category. The interactive aspect of trains makes toy trains perfect for young children. The wooden train sets are ideal for children under the age of 5.',	NULL,	NULL),
+	('Trucks and Buses',	'The Truck and Bus models are realistic replicas of buses and specialized trucks produced from the early 1920s to present. The models range in size from 1:12 to 1:50 scale and include numerous limited edition and several out-of-production vehicles. Materials used include tin, diecast and plastic. All models include a certificate of authenticity from their manufacturers and are a perfect ornament for the home and office.',	NULL,	NULL),
+	('Vintage Cars',	'Our Vintage Car models realistically portray automobiles produced from the early 1900s through the 1940s. Materials used include Bakelite, diecast, plastic and wood. Most of the replicas are in the 1:18 and 1:24 scale sizes, which provide the optimum in detail and accuracy. Prices range from $30.00 up to $180.00 for some special limited edition replicas. All models include a certificate of authenticity from their manufacturers and come fully assembled and ready for display in the home or office.',	NULL,	NULL);
+
+
+INSERT INTO products
+	(productCode,productName,productLine,productScale,productVendor,productDescription,quantityInStock,buyPrice,MSRP)
+VALUES
+	('S10_1678',	'1969 Harley Davidson Ultimate Chopper',	'Motorcycles',	'1:10',	'Min Lin Diecast',	'This replica features working kickstand, front suspension, gear-shift lever, footbrake lever, drive chain, wheels and steering. All parts are particularly delicate due to their precise scale and require special care and attention.',	7933,	48.81,	95.7),
+	('S10_1949',	'1952 Alpine Renault 1300',	'Classic Cars',	'1:10',	'Classic Metal Creations',	'Turnable front wheels; steering function; detailed interior; detailed engine; opening hood; opening trunk; opening doors; and detailed chassis.'	,7305	,98.58,	214.3),
+	('S12_4473',	'1957 Chevy Pickup',	'Trucks and Buses',	'1:12',	'Exoto Designs',	'1:12 scale die-cast about 20" long Hood opens, Rubber wheels',	6125	,55.7	,118.5),
+	('S12_4675',	'1969 Dodge Charger',	'Classic Cars',	'1:12',	'Welly Diecast Productions',	'Detailed model of the 1969 Dodge Charger. This model includes finely detailed interior and exterior features. Painted in red and white.',	7323,	58.73,	115.16),
+	('S18_1097',	'1940 Ford Pickup Truck',	'Trucks and Buses',	'1:18',	'Studio M Art Models',	'This model features soft rubber tires, working steering, rubber mud guards, authentic Ford logos, detailed undercarriage, opening doors and hood,  removable split rear gate, full size spare mounted in bed, detailed interior with opening glove box',	2613,	58.33,	116.67),
+	('S18_1129',	'1993 Mazda RX-7',	'Classic Cars',	'1:18',	'Highway 66 Mini Classics',	'This model features, opening hood, opening doors, detailed engine, rear spoiler, opening trunk, working steering, tinted windows, baked enamel finish. Color red.',	3975,	83.51,	141.54),
+	('S18_1342',	'1937 Lincoln Berline',	'Vintage Cars',	'1:18',	'Motor City Art Classics',	'Features opening engine cover, doors, trunk, and fuel filler cap. Color black',	8693,	60.62,	102.74);
 
 INSERT INTO payments
 	(customerNumber,	checkNumber,	paymentDate,	amount)
@@ -190,35 +182,24 @@ VALUES
 	(6,	'Sydney',	'+61 2 9264 2451',	'5-11 Wentworth Avenue',	'Floor #2',	NULL,	'Australia',	'NSW 2010',	'APAC'),
 	(7,	'London',	'+44 20 7877 2041',	'25 Old Broad Street',	'Level 7',	NULL,	'UK',	'EC2N 1HN',	'EMEA');
 
--- bai 1
 
-select substring(productDescription,1,50) as "Title of products"
-from products;
+-- bai 1
+-- 1
+Select customerNumber,customerName,city
+from customers 
+where city IN("Nantes","Lyon");
+-- 2
+Select customerNumber,customerName,city
+from customers 
+where city = "Nantes" Or city = "Lyon";
 
 
 -- bai 2
-
-SELECT CONCAT(firstName," ",lastName) as "Full Name", jobTitle
-from employees;
-
--- bai 3
-
-UPDATE products
-Set productLine = REPLACE(productLine,"Cars","Automobiles");
-
--- bai 4
-
-SELECT orderNumber,requiredDate,shippedDate,DATEDIFF(requiredDate,shippedDate) as "days"
+-- 1
+SELECT orderNumber,shippedDate
 from orders
-WHERE shippedDate is NOT NULL
-order BY days ASC
-LIMIT 5;
-
-
--- bai 5
-
-SELECT orderNumber,orderDate,shippedDate
+where shippedDate between "2003-01-10" AND "2003-03-10";
+-- 2
+SELECT orderNumber,shippedDate
 from orders
-WHERE shippedDate is NULL AND orderDate between "2005-05-01" AND "2005-05-31"
-
-
+where shippedDate >= "2003-01-10" AND shippedDate <="2003-03-10"
