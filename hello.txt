@@ -1,0 +1,9 @@
+// xuat chon thang
+SELECT orderNumber,orderDate,shippedDate
+from orders
+WHERE EXTRACT(month from orderDate)=5
+
+//
+SELect *
+from products
+where productLine LIKE "%CARS"
